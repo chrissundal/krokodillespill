@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krokodille</title>
+    <style>
+    .main{
+    margin-top: 50px;
+    margin-left: 100px;
+    display: flex;
+    font-size: xx-large;
+    }
+    input{
+        width: 18px;
+        font-size: xx-large;
+        border: 2px solid black;
+    }
+    .buttons{
+        margin-top: 10px;
+        margin-left: 68px;
+        margin-bottom: 20px;
+    }
+    #firstNum {
+        margin-right: 20px;
+    }
+    #secondNum {
+        margin-left: 20px;
+    }
+    #poeng{
+        margin-top: 10px;
+        margin-left: 95px;
+        border: 2px solid black;
+        width: 100px;
+        text-align: center;
+        border-radius: 10px;
+    }
+    #bilde{
+        margin-left: 105px;
+    }
+    #container{
+        border: 3px solid black;
+        width: 300px;
+        border-radius: 20px;
+        margin-left: 200px;
+        margin-top: 200px;
+        background-color: lightblue;
+    }
+    button{
+        width: 80px;
+        border: 2px solid black;
+        border-radius: 15px;
+    }
+    #highScore {
+        border: 3px solid black;
+        width: 300px;
+        height: auto;
+        margin-left: 200px;
+        border-radius: 10px;
+        text-align: center;
+        background-color: lightblue;
+        font-size: x-large;
+    }
+    #showTimer{
+        width: 300px;
+        height: 30px;
+        margin-left: 200px;
+        border: 3px solid black;
+        border-radius: 10px;
+        text-align: center;
+        background-color: lightblue;
+        font-size: x-large;
+    }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="poeng">Poeng: 0</div>
+        <div id="bilde"></div>
+        <div class="main">
+            <div id="firstNum">0</div>
+            <input type="text" id="txtanswer"></input>
+            <div id="secondNum">0</div>
+        </div>
+        <div class="buttons">
+            <button onclick="submit()">Submit</button>
+            <button onclick="reset()">Reset</button>
+            <button onclick="startTimer()">Start</button>
+        </div>
+    </div>
+    <div>
+        <div id="showTimer"></div>
+        <div id="highScore">HighScore</div>
+    </div>
+
+
+
+    <script>
+        let firstNum = 0;
+        let secondNum = 0;
+
+        const app = document.getElementById('showTimer');
+            const roundTime = document.getElementById('highScore');
+            let seconds = 0;
+            var minTimer;
+
+        function minTimer() {
+            setInterval(countSeconds, 1000);
+        }
+        function startTimer(){
+            minTimer();
+            updateNumbers();
+        }
+        function countSeconds() {
+            app.innerHTML = seconds;
+            seconds++;
+        }
+        function lapTimer() {
+            roundTime.innerHTML += `<li>${seconds-1} sekunder</li>`;
+            clearInterval(minTimer);
+            seconds = 0;
+        }
+        function reset(){
+            updateNumbers();
+            seconds = 0;
+
+        }
+        
+        function submit(){
+           var inputAnswer = document.getElementById('txtanswer').value;
+           document.getElementById("bilde").innerHTML = ``;
+           document.getElementById("container").style.backgroundColor = 'lightblue';
+            if (firstNum < secondNum && inputAnswer=="<") {
+                correctAnswer();
+            }else if (firstNum > secondNum && inputAnswer==">") {
+                correctAnswer();
+            }else if (firstNum == secondNum && inputAnswer=="="){
+                correctAnswer();
+            }else{
+                wrongAnswer();
+            } 
+        }
+        let krokPoeng = 0;
+        function correctAnswer(){
+            document.getElementById("bilde").innerHTML = `RIKTIG`;
+            document.getElementById("container").style.backgroundColor = 'green';
+            krokPoeng +=1;
+            document.getElementById("poeng").innerHTML = krokPoeng;
+            updateNumbers();
+            if (krokPoeng==10) {
+                highScore();
+            }
+        }
+        function wrongAnswer(){
+            document.getElementById("bilde").innerHTML = `DET ER FEIL`;
+            document.getElementById("container").style.backgroundColor = 'red';
+            krokPoeng -=1;
+            document.getElementById("poeng").innerHTML = krokPoeng;
+            updateNumbers();
+        }
+        function highScore(){
+            document.getElementById("poeng").innerHTML = `DU VANT!`;
+            lapTimer();
+        }
+        function updateNumbers(){
+            firstNum = getRandomNumber();
+            secondNum = getRandomNumber();
+            document.getElementById("firstNum").innerHTML = firstNum;
+            document.getElementById("secondNum").innerHTML = secondNum;
+            
+        }
+
+        function getRandomNumber(){
+            return Math.round(Math.random() * 10);
+        }
+    </script>
+</body>
+</html>
