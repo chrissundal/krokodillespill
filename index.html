@@ -116,7 +116,7 @@
         let firstNum = 0;
         let secondNum = 0;
 
-        const app = document.getElementById('showTimer');
+        const timer = document.getElementById('showTimer');
         const roundTime = document.getElementById('highScore');
         let seconds = 0;
         var minTimer;
@@ -129,7 +129,7 @@
             updateNumbers();
         }
         function countSeconds() {
-            app.innerHTML = seconds;
+            timer.innerHTML = seconds;
             seconds++;
         }
         function lapTimer() {
