@@ -109,8 +109,6 @@
         <div id="highScore">HighScore</div>
     </div>
 
-
-
     <script>
         let firstNum = 0;
         let secondNum = 0;
@@ -119,7 +117,6 @@
         const roundTime = document.getElementById('highScore');
         var myInterval;
 
-        
         function startTimer() {
             seconds = 0;
             krokPoeng = 0;
@@ -133,14 +130,11 @@
         }
         function lapTimer() {
             roundTime.innerHTML += `<li>Ikke dårlig! ${seconds - 1} sekunder</li>`;
-            clearInterval(myInterval);
-            
+            clearInterval(myInterval);   
         }
         function reset() {
             location.reload();
-
         }
-
         function submit() {
             var inputAnswer = document.getElementById('txtanswer').value;
             document.getElementById("container").style.backgroundColor = 'lightblue';
@@ -172,15 +166,13 @@
         }
         function highScore() {
             document.getElementById("poeng").innerHTML = `DU VANT!`;
-            lapTimer();
-            
+            lapTimer(); 
         }
         function updateNumbers() {
             firstNum = getRandomNumber();
             secondNum = getRandomNumber();
             document.getElementById("firstNum").innerHTML = firstNum;
             document.getElementById("secondNum").innerHTML = secondNum;
-
         }
 
         function getRandomNumber() {
