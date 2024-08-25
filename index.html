@@ -121,9 +121,9 @@
 
         
         function startTimer() {
-            myInterval = setInterval(countSeconds, 1000);
             seconds = 0;
             krokPoeng = 0;
+            myInterval = setInterval(countSeconds, 1000);
             document.getElementById("poeng").innerHTML = krokPoeng;
             updateNumbers();
         }
