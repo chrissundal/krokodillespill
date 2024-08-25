@@ -93,7 +93,6 @@
 <body>
     <div id="container">
         <div id="poeng">Poeng: 0</div>
-        <div id="bilde"></div>
         <div class="main">
             <div id="firstNum">0</div>
             <input type="text" id="txtanswer"></input>
@@ -115,17 +114,17 @@
     <script>
         let firstNum = 0;
         let secondNum = 0;
-
+        let seconds = 0;
         const timer = document.getElementById('showTimer');
         const roundTime = document.getElementById('highScore');
-        let seconds = 0;
-        var minTimer;
+        var myInterval;
 
-        function minTimer() {
-            setInterval(countSeconds, 1000);
-        }
+        
         function startTimer() {
-            minTimer();
+            myInterval = setInterval(countSeconds, 1000);
+            seconds = 0;
+            krokPoeng = 0;
+            document.getElementById("poeng").innerHTML = krokPoeng;
             updateNumbers();
         }
         function countSeconds() {
@@ -134,8 +133,8 @@
         }
         function lapTimer() {
             roundTime.innerHTML += `<li>Ikke dårlig! ${seconds - 1} sekunder</li>`;
-            clearInterval(minTimer);
-            seconds = 0;
+            clearInterval(myInterval);
+            
         }
         function reset() {
             location.reload();
@@ -144,7 +143,6 @@
 
         function submit() {
             var inputAnswer = document.getElementById('txtanswer').value;
-            document.getElementById("bilde").innerHTML = ``;
             document.getElementById("container").style.backgroundColor = 'lightblue';
             if (firstNum < secondNum && inputAnswer == "<") {
                 correctAnswer();
@@ -158,9 +156,8 @@
         }
         let krokPoeng = 0;
         function correctAnswer() {
-            document.getElementById("bilde").innerHTML = `RIKTIG`;
             document.getElementById("container").style.backgroundColor = 'green';
-            krokPoeng += 1;
+            krokPoeng +=1;
             document.getElementById("poeng").innerHTML = krokPoeng;
             updateNumbers();
             if (krokPoeng == 10) {
@@ -168,7 +165,6 @@
             }
         }
         function wrongAnswer() {
-            document.getElementById("bilde").innerHTML = `DET ER FEIL`;
             document.getElementById("container").style.backgroundColor = 'red';
             krokPoeng -= 1;
             document.getElementById("poeng").innerHTML = krokPoeng;
@@ -177,6 +173,7 @@
         function highScore() {
             document.getElementById("poeng").innerHTML = `DU VANT!`;
             lapTimer();
+            
         }
         function updateNumbers() {
             firstNum = getRandomNumber();
