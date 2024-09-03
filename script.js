@@ -1,6 +1,8 @@
 let firstNum = 0;
 let secondNum = 0;
+let millisec = 0;
 let seconds = 0;
+var timeElapsed = 0;
 let krokPoeng = 0;
 let aLetter = '';
 var myInterval;
@@ -35,15 +37,21 @@ function updateView() {
 function startTimer() {
     seconds = 0;
     krokPoeng = 0;
-    myInterval = setInterval(countSeconds, 1000);
+    myInterval = setInterval(countSeconds, 100);
     updateView();
     updateNumbers();
 }
 function countSeconds() {
-    seconds++;
+    if (millisec >= 9) {
+        millisec = 0;
+        seconds+=1;
+    } else {
+        millisec+=1;  
+    }
+    timeElapsed = seconds + "." + millisec;  
 }
 function highScore() {
-    hScore = `<li>Ikke dårlig! ${seconds - 1} sekunder</li>`;
+    hScore += `<li>Ikke dårlig! ${timeElapsed} sekunder</li>`;
     clearInterval(myInterval);
     updateView();
 }
